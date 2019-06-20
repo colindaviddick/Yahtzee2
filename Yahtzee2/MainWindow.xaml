@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Yahtzee2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="520" Width="800" Background="DarkGreen">
+        Title="YAHTZEE!" Height="600" Width="1100" Background="DarkGreen" HorizontalAlignment="Center">
 
     <Window.Resources>
         <Style TargetType="Button" >
@@ -13,23 +13,31 @@
             <Setter Property="BorderBrush" Value="Black"/>
         </Style>
     </Window.Resources>
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Grid HorizontalAlignment="Left" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="660"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <StackPanel VerticalAlignment="Bottom">
-            <Button Margin="10" Content="Restart"/>
-            <Button Margin="10" Content="Options"/>
-            <Button Margin="10 10 10 50" Content="Help"/>
-        </StackPanel>
+        <Border Grid.Column="0" Background="DarkRed">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="8" BlurRadius="20"/>
+            </Border.Effect>
+            <StackPanel VerticalAlignment="Bottom" Grid.Column="0">
+                <Button x:Name="Restart" Margin="10" Content="Restart" Click="Restart_Click"/>
+                <Button x:Name="Options" Margin="10" Content="Options" Click="Options_Click"/>
+                <Button x:Name="Help" Margin="10 10 10 50" Content="Help" Click="Help_Click"/>
+            </StackPanel>
+        </Border>
 
-        <Grid HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="350"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="210"/>
                 <ColumnDefinition Width="40"/>
                 <ColumnDefinition Width="210"/>
             </Grid.ColumnDefinitions>
@@ -38,19 +46,20 @@
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="250"/>
-                <RowDefinition Height="70"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="85"/>
+                <!--<RowDefinition Height="70"/>-->
+                <RowDefinition Height="200"/>
             </Grid.RowDefinitions>
             <!--Header Info-->
             <Border Grid.ColumnSpan="3" Background="PowderBlue" BorderBrush="DarkSlateBlue" BorderThickness="5" CornerRadius="20" Margin="115,5,195,5">
-                <TextBlock Grid.ColumnSpan="4" Grid.Column="0" Grid.Row="0" Text="Yahtzee!" Margin="5" FontWeight="Bold" FontSize="30" HorizontalAlignment="Center"/>
+                <TextBlock Grid.ColumnSpan="4" Grid.Column="0" Grid.Row="0" Text="Yahtzee!" Margin="5" FontWeight="Bold" FontSize="30" HorizontalAlignment="Center" FontFamily="{Binding Gloria}"/>
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="20" BlurRadius="30"/>
                 </Border.Effect>
             </Border>
             <!--Game Info-->
 
-            <Border Background="LawnGreen" Grid.Row="2" Grid.RowSpan="3" CornerRadius="5">
+            <Border Background="LawnGreen" Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" CornerRadius="5">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="20" BlurRadius="30"/>
                 </Border.Effect>
@@ -61,7 +70,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <Button x:Name="Dice1" Height="50" Width="50" RenderTransformOrigin="0.5,0.5">
+                    <Button x:Name="Dice1" Height="70" Width="70" FontSize="40" RenderTransformOrigin="0.5,0.5" Click="Dice1_Click">
                         <Button.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -71,7 +80,7 @@
                             </TransformGroup>
                         </Button.RenderTransform>
                     </Button>
-                    <Button x:Name="Dice2" Height="50" Width="50">
+                    <Button x:Name="Dice2" Height="70" Width="70" FontSize="40" Click="Dice2_Click">
                         <Button.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -81,8 +90,8 @@
                             </TransformGroup>
                         </Button.RenderTransform>
                     </Button>
-                    <Button x:Name="Dice3" Height="50" Width="50"/>
-                    <Button x:Name="Dice4" Height="50" Width="50" RenderTransformOrigin="0.5,0.5">
+                    <Button x:Name="Dice3" Height="70" Width="70" FontSize="40" Click="Dice3_Click"/>
+                    <Button x:Name="Dice4" Height="70" Width="70" FontSize="40" RenderTransformOrigin="0.5,0.5" Click="Dice4_Click">
                         <Button.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -92,7 +101,7 @@
                             </TransformGroup>
                         </Button.RenderTransform>
                     </Button>
-                    <Button x:Name="Dice5" Height="50" Width="50" RenderTransformOrigin="0.5,0.5">
+                    <Button x:Name="Dice5" Height="70" Width="70" FontSize="40" RenderTransformOrigin="0.5,0.5" Click="Dice5_Click">
                         <Button.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -103,51 +112,99 @@
                         </Button.RenderTransform>
                     </Button>
 
-                    <Button Content="ROLL" Width="300" Height="70" VerticalAlignment="Bottom" Margin="20" BorderBrush="Black" Click="Roll_Click"/>
+                    <Button x:Name="RollDiceButton" Content="ROLL" Width="300" Height="70" FontSize="40" VerticalAlignment="Bottom" Margin="20" BorderBrush="Black" Click="Roll_Click"/>
                 </Grid>
             </Border>
+            <TextBlock x:Name="Turns" Grid.Row="2" Grid.Column="1" Text="HELLO" FontWeight="Bold" FontSize="20" VerticalAlignment="Top" HorizontalAlignment="Center"/>
 
             <!--Score Info-->
-            <Border Grid.Column="2" Grid.RowSpan="3" Background="Beige" Grid.Row="2" CornerRadius="5">
+            <Border Grid.Column="3" Grid.RowSpan="3" Background="Beige" Grid.Row="2" CornerRadius="5">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="20" BlurRadius="30"/>
                 </Border.Effect>
             </Border>
-            <TextBlock Text="Scores" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" FontStyle="Italic" Margin="76,0,75,0" Width="59"/>
-            <StackPanel Grid.Row="3" Grid.Column="2" Grid.RowSpan="2" Margin="0,0,70,0">
+            <TextBlock Text="Your Scores" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" FontStyle="Italic" Margin="2" Width="120"/>
+            <StackPanel Grid.Row="3" Grid.Column="3" Grid.RowSpan="2" Margin="0,0,70,0">
 
-                <Button HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="1" FontSize="12"/>
-                <Button HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="2" FontSize="12"/>
-                <Button HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="3" FontSize="12"/>
-                <Button HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="4" FontSize="12"/>
-                <Button HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="5" FontSize="12"/>
-                <Button HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="6" FontSize="12"/>
-                <Button HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="Three of a kind" FontSize="12"/>
-                <Button HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="Four of a kind" FontSize="12"/>
-                <Button HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="Full House" FontSize="12"/>
-                <Button HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="Small straight" FontSize="12"/>
-                <Button HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="Large straight" FontSize="12"/>
-                <Button HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="Chance" FontSize="12"/>
-                <Button HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="Yahtzee!" FontSize="12"/>
-                <TextBlock HorizontalAlignment="Right" Text="Total:" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" FontWeight="Bold"/>
+                <Button x:Name="Ones" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="1" FontSize="12" Click="Ones_Click"/>
+                <Button x:Name="Twos" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="2" FontSize="12" Click="Twos_Click"/>
+                <Button x:Name="Threes" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="3" FontSize="12" Click="Threes_Click"/>
+                <Button x:Name="Fours" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="4" FontSize="12" Click="Fours_Click"/>
+                <Button x:Name="Fives" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="5" FontSize="12" Click="Fives_Click"/>
+                <Button x:Name="Sixes" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="6" FontSize="12" Click="Sixes_Click"/>
+                <TextBlock Text="Bonus Points" TextAlignment="Center" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12"/>
+                <Rectangle Fill="Black" Height="1" Width="120" HorizontalAlignment="Right"/>
+                <Button x:Name="ThreeOfAKind" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="Three of a kind" FontSize="12" Click="ThreeOfAKind_Click"/>
+                <Button x:Name="FourOfAKind" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="Four of a kind" FontSize="12" Click="FourOfAKind_Click"/>
+                <Button x:Name="FullHouse" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="Full House" FontSize="12" Click="FullHouse_Click"/>
+                <Button x:Name="SmallStraight" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="Small straight" FontSize="12" Click="SmallStraight_Click"/>
+                <Button x:Name="LargeStraight" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="Large straight" FontSize="12" Click="LargeStraight_Click"/>
+                <Button x:Name="Chance" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="Chance" FontSize="12" Click="Chance_Click"/>
+                <Button x:Name="Yahtzee" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Content="Yahtzee!" FontSize="12" Click="Yahtzee_Click"/>
+                <TextBlock HorizontalAlignment="Right" Text="Total:" Height="20" Margin="0 2 0 0" FontSize="12" Width="70" FontWeight="Bold"/>
             </StackPanel>
-            <StackPanel Grid.Row="3" Grid.Column="2" Grid.RowSpan="2" Margin="140,0,0,0">
-                <TextBox HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50"/>
-                <TextBox HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50"/>
-                <TextBox HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50"/>
-                <TextBox HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50"/>
-                <TextBox HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50"/>
-                <TextBox HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50"/>
-                <TextBox HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50"/>
-                <TextBox HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50"/>
-                <TextBox HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50"/>
-                <TextBox HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50"/>
-                <TextBox HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50"/>
-                <TextBox HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50"/>
-                <TextBox HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50"/>
-                <TextBox HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" Background="Beige"/>
+            <StackPanel Grid.Row="3" Grid.Column="3" Grid.RowSpan="2" Margin="140,0,0,0">
+                <TextBox Text="0" TextAlignment="Center" x:Name="OnesTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="TwosTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="ThreesTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="FoursTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="FivesTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="SixesTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="OneToSixBonus" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False" FontWeight="Bold"/>
+                <Rectangle Fill="Black" Height="1" Width="50" HorizontalAlignment="Left"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="ThreeOfAKindTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="FourOfAKindTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="FullHouseTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="SmallStraightTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="LargeStraightTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="ChanceTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="YahtzeeTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="TotalScore" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" Background="Beige" IsManipulationEnabled="False" IsEnabled="False" FontWeight="Bold"/>
             </StackPanel>
-            <TextBlock Text="© Yahtzee! Colin Dick 2019 - All Rights Reserved" Grid.Row="5" Grid.ColumnSpan="3" HorizontalAlignment="Center" Margin="15"/>
+            <!--<Border Grid.Column="5" Grid.RowSpan="3" Background="Beige" Grid.Row="2" CornerRadius="5">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="20" BlurRadius="30"/>
+                </Border.Effect>
+            </Border>
+            <TextBlock Text="Opponent's Scores" Grid.Column="5" Grid.Row="2" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" FontStyle="Italic" Margin="2" Width="120"/>
+            <StackPanel Grid.Row="3" Grid.Column="5" Grid.RowSpan="2" Margin="0,0,70,0">
+
+                <TextBlock x:Name="OPOnes" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Text="1" FontSize="12"/>
+                <TextBlock x:Name="OPTwos" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Text="2" FontSize="12"/>
+                <TextBlock x:Name="OPThrees" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Text="3" FontSize="12"/>
+                <TextBlock x:Name="OPFours" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Text="4" FontSize="12"/>
+                <TextBlock x:Name="OPFives" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Text="5" FontSize="12"/>
+                <TextBlock x:Name="OPSixes" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Text="6" FontSize="12"/>
+                <TextBlock Text="Bonus Points" TextAlignment="Center" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12"/>
+                <Rectangle Fill="Black" Height="1" Width="120" HorizontalAlignment="Right"/>
+                <TextBlock x:Name="OPThreeOfAKind" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Text="Three of a kind" FontSize="12"/>
+                <TextBlock x:Name="OPFourOfAKind" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Text="Four of a kind" FontSize="12"/>
+                <TextBlock x:Name="OPFullHouse" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Text="Full House" FontSize="12"/>
+                <TextBlock x:Name="OPSmallStraight" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Text="Small straight" FontSize="12"/>
+                <TextBlock x:Name="OPLargeStraight" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Text="Large straight" FontSize="12"/>
+                <TextBlock x:Name="OPChance" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Text="Chance" FontSize="12"/>
+                <TextBlock x:Name="OPYahtzee" HorizontalAlignment="Right" Margin="0 2 5 0" Height="20" Width="120" Text="Yahtzee!" FontSize="12"/>
+                <TextBlock HorizontalAlignment="Right" Text="Total:" Height="20" Margin="0 2 0 0" FontSize="12" Width="70" FontWeight="Bold"/>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Grid.Column="5" Grid.RowSpan="2" Margin="140,0,0,0">
+                <TextBox Text="0" TextAlignment="Center" x:Name="OPOnesTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="OPTwosTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="OPThreesTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="OPFoursTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="OPFivesTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="OPSixesTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="OPOneToSixBonus" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False" FontWeight="Bold"/>
+                <Rectangle Fill="Black" Height="1" Width="50" HorizontalAlignment="Left"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="OPThreeOfAKindTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="OPFourOfAKindTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="OPFullHouseTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="OPSmallStraightTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="OPLargeStraightTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="OPChanceTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="OPYahtzeeTotal" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" IsManipulationEnabled="False" IsEnabled="False"/>
+                <TextBox Text="0" TextAlignment="Center" x:Name="OPTotalScore" HorizontalAlignment="Center" Height="20" Margin="0 2 0 0" FontSize="12" Width="50" Background="Beige" IsManipulationEnabled="False" IsEnabled="False" FontWeight="Bold"/>
+            </StackPanel>-->
+            <TextBlock Text="© Yahtzee! Colin Dick 2019 - All Rights Reserved" Grid.Row="5" Grid.ColumnSpan="3" HorizontalAlignment="Center" Margin="25"/>
         </Grid>
     </Grid>
 
